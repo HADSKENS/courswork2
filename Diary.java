@@ -1,4 +1,3 @@
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -57,8 +56,7 @@ public class Diary {
     public void deleteTaskIfHaveId() {
         if (diary.size() == 0) {
             System.out.println("Задач не обнаружено");
-        }
-        else {
+        } else {
             System.out.println("Введите ID");
             count = scanner.nextInt();
             for (int i = 0; i < diary.size(); i++) {
@@ -69,6 +67,7 @@ public class Diary {
             }
         }
     }
+
     public void taskNextDay() throws ParseException {
         for (Task a : diary) {
             date = a.getDate();
@@ -103,10 +102,9 @@ public class Diary {
     }
 
     public void printAll() {
-        if(diary.size()==0){
+        if (diary.size() == 0) {
             System.out.println("Задач не обнаружено");
-        }
-        else {
+        } else {
             for (Task task : diary) {
                 System.out.println(task);
             }

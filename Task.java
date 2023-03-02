@@ -1,6 +1,3 @@
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class Task {
@@ -12,16 +9,17 @@ public class Task {
     static int numberCreation;
     String date;
     Date dateCreate = new Date();
-    public Task(){
+
+    public Task() {
     }
 
-    public Task(String header, String description, TypeTask typeTask,Periodicity periodicity) {
-        this.date=String.valueOf(dateCreate);
+    public Task(String header, String description, TypeTask typeTask, Periodicity periodicity) {
+        this.date = String.valueOf(dateCreate);
         id = getNumberCreation();
         this.header = header;
         this.description = description;
         this.type = typeTask.stringTask;
-        this.periodicity=periodicity.stringPeriodicity;
+        this.periodicity = periodicity.stringPeriodicity;
         numberCreation++;
     }
 
