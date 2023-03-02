@@ -52,6 +52,32 @@ public class Diary {
                 System.out.println("Не понимаю");
         }
     }
+    private void menuChoice1(int num) {
+        switch (num) {
+            case 1:
+                Task a = new Task(a1, b1, TypeTask.working, Periodicity.onlyone);
+                diary.add(a);
+                break;
+            case 2:
+                Task b = new Task(a1, b1, TypeTask.working, Periodicity.oneonday);
+                diary.add(b);
+                break;
+            case 3:
+                Task c = new Task(a1, b1, TypeTask.working, Periodicity.oneonweek);
+                diary.add(c);
+                break;
+            case 4:
+                Task d = new Task(a1, b1, TypeTask.working, Periodicity.oneonmonth);
+                diary.add(d);
+                break;
+            case 5:
+                Task e = new Task(a1, b1, TypeTask.working, Periodicity.oneonyear);
+                diary.add(e);
+                break;
+            default:
+                System.out.println("Не понимаю");
+        }
+    }
 
     public void deleteTaskIfHaveId() {
         if (diary.size() == 0) {
@@ -96,7 +122,7 @@ public class Diary {
         b1 = scanner.next();
         printMenu();
         if (scanner.hasNext()) {
-            menuChoice(scanner.nextInt());
+            menuChoice1(scanner.nextInt());
         }
 
     }
