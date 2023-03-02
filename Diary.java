@@ -52,6 +52,7 @@ public class Diary {
                 System.out.println("Не понимаю");
         }
     }
+
     private void menuChoice1(int num) {
         switch (num) {
             case 1:
@@ -96,12 +97,55 @@ public class Diary {
 
     public void taskNextDay() throws ParseException {
         for (Task a : diary) {
-            date = a.getDate();
-            SimpleDateFormat d2 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
-            Date date1 = d2.parse(date);
-            result = date1.compareTo(currentDay);
-            if (result == 1) {
-                System.out.println(a);
+            if (a.getPeriodicity() == "Один раз") {
+                date = a.getDate();
+                SimpleDateFormat d2 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
+                Date date1 = d2.parse(date);
+                date = d2.format(cal.getTime());
+                currentDay = d2.parse(date);
+                if (date1.getDate() + 1 == currentDay.getDate() & date1.getYear() == currentDay.getYear() & date1.getMonth() == currentDay.getMonth()) {
+                    System.out.println(a);
+                }
+            }
+            if (a.getPeriodicity() == "Ежедневно") {
+                date = a.getDate();
+                SimpleDateFormat d2 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
+                Date date1 = d2.parse(date);
+                cal.add(Calendar.DATE, 1);
+                result = date1.compareTo(currentDay);
+                if (result == 1) {
+                    System.out.println(a);
+                }
+            }
+            if (a.getPeriodicity() == "Еженедельно") {
+                date = a.getDate();
+                SimpleDateFormat d2 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
+                Date date1 = d2.parse(date);
+                date = d2.format(cal.getTime());
+                currentDay = d2.parse(date);
+                if (date1.getDay() == currentDay.getDay()) {
+                    System.out.println(a);
+                }
+            }
+            if (a.getPeriodicity() == "Ежемесячно") {
+                date = a.getDate();
+                SimpleDateFormat d2 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
+                Date date1 = d2.parse(date);
+                date = d2.format(cal.getTime());
+                currentDay = d2.parse(date);
+                if (date1.getMonth() < currentDay.getMonth() & date1.getDate() == currentDay.getDate()) {
+                    System.out.println(a);
+                }
+            }
+            if (a.getPeriodicity() == "Ежегодно") {
+                date = a.getDate();
+                SimpleDateFormat d2 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
+                Date date1 = d2.parse(date);
+                date = d2.format(cal.getTime());
+                currentDay = d2.parse(date);
+                if (date1.getYear() < currentDay.getYear() & date1.getMonth() == currentDay.getMonth() & date1.getDate() == currentDay.getDate()) {
+                    System.out.println(a);
+                }
             }
         }
     }
