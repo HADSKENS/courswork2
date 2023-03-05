@@ -1,21 +1,18 @@
+import java.security.spec.RSAOtherPrimeInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Diary {
+public class Diary{
+
     public Diary() {
     }
 
     private final Scanner scanner = new Scanner(System.in);
-    private final List<Task> diary = new ArrayList<>();
+    public final List<Task> diary = new ArrayList<>();
     String a1;
     String b1;
     int count;
-    String date;
-    String date1;
-    int result;
-    Date currentDay = new Date();
-    Calendar cal = Calendar.getInstance();
 
     private void printMenu() {
         System.out.println("Выберите частоту повтора задачи");
@@ -26,26 +23,26 @@ public class Diary {
         System.out.println("5 - Ежегодно");
     }
 
-    private void menuChoice(int num) {
+    private void menuChoice(int num) throws ParseException {
         switch (num) {
             case 1:
-                Task a = new Task(a1, b1, TypeTask.personal, Periodicity.onlyone);
+                OneTimeTask a = new OneTimeTask(a1, b1, TypeTask.personal, Periodicity.OnlyOne);
                 diary.add(a);
                 break;
             case 2:
-                Task b = new Task(a1, b1, TypeTask.personal, Periodicity.oneonday);
+                DailyTask b = new DailyTask(a1, b1, TypeTask.personal, Periodicity.OneOnDay);
                 diary.add(b);
                 break;
             case 3:
-                Task c = new Task(a1, b1, TypeTask.personal, Periodicity.oneonweek);
+                WeeklyTask c = new WeeklyTask(a1, b1, TypeTask.personal, Periodicity.OneOnWeek);
                 diary.add(c);
                 break;
             case 4:
-                Task d = new Task(a1, b1, TypeTask.personal, Periodicity.oneonmonth);
+                MonthlyTask d = new MonthlyTask(a1, b1, TypeTask.personal, Periodicity.OneOnMonth);
                 diary.add(d);
                 break;
             case 5:
-                Task e = new Task(a1, b1, TypeTask.personal, Periodicity.oneonyear);
+                YearlyTask e = new YearlyTask(a1, b1, TypeTask.personal, Periodicity.OneOnYear);
                 diary.add(e);
                 break;
             default:
@@ -53,26 +50,26 @@ public class Diary {
         }
     }
 
-    private void menuChoice1(int num) {
+    private void menuChoice1(int num) throws ParseException {
         switch (num) {
             case 1:
-                Task a = new Task(a1, b1, TypeTask.working, Periodicity.onlyone);
+                OneTimeTask a = new OneTimeTask(a1, b1, TypeTask.working, Periodicity.OnlyOne);
                 diary.add(a);
                 break;
             case 2:
-                Task b = new Task(a1, b1, TypeTask.working, Periodicity.oneonday);
+                DailyTask b = new DailyTask(a1, b1, TypeTask.working, Periodicity.OneOnDay);
                 diary.add(b);
                 break;
             case 3:
-                Task c = new Task(a1, b1, TypeTask.working, Periodicity.oneonweek);
+                WeeklyTask c = new WeeklyTask(a1, b1, TypeTask.working, Periodicity.OneOnWeek);
                 diary.add(c);
                 break;
             case 4:
-                Task d = new Task(a1, b1, TypeTask.working, Periodicity.oneonmonth);
+                MonthlyTask d = new MonthlyTask(a1, b1, TypeTask.working, Periodicity.OneOnMonth);
                 diary.add(d);
                 break;
             case 5:
-                Task e = new Task(a1, b1, TypeTask.working, Periodicity.oneonyear);
+                YearlyTask e = new YearlyTask(a1, b1, TypeTask.working, Periodicity.OneOnYear);
                 diary.add(e);
                 break;
             default:
@@ -95,62 +92,27 @@ public class Diary {
         }
     }
 
-    public void taskNextDay() throws ParseException {
-        for (Task a : diary) {
-            if (a.getPeriodicity() == "Один раз") {
-                date = a.getDate();
-                SimpleDateFormat d2 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
-                Date date1 = d2.parse(date);
-                date = d2.format(cal.getTime());
-                currentDay = d2.parse(date);
-                if (date1.getDate() + 1 == currentDay.getDate() & date1.getYear() == currentDay.getYear() & date1.getMonth() == currentDay.getMonth()) {
-                    System.out.println(a);
-                }
+    public void taskNextDay() throws ParseException{
+        for (Task task : diary) {
+            if (task.getPeriodicity().compareTo(Periodicity.OnlyOne.name()) == 0) {
+                    Periodicity.OnlyOne.nextTimeActuation(task);
             }
-            if (a.getPeriodicity() == "Ежедневно") {
-                date = a.getDate();
-                SimpleDateFormat d2 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
-                Date date1 = d2.parse(date);
-                cal.add(Calendar.DATE, 1);
-                result = date1.compareTo(currentDay);
-                if (result == 1) {
-                    System.out.println(a);
-                }
+            if (task.getPeriodicity().compareTo(Periodicity.OneOnDay.name())==0){
+                Periodicity.OneOnDay.nextTimeActuation(task);
             }
-            if (a.getPeriodicity() == "Еженедельно") {
-                date = a.getDate();
-                SimpleDateFormat d2 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
-                Date date1 = d2.parse(date);
-                date = d2.format(cal.getTime());
-                currentDay = d2.parse(date);
-                if (date1.getDay() == currentDay.getDay()) {
-                    System.out.println(a);
-                }
+            if (task.getPeriodicity().compareTo(Periodicity.OneOnWeek.name())==0) {
+                Periodicity.OneOnWeek.nextTimeActuation(task);
             }
-            if (a.getPeriodicity() == "Ежемесячно") {
-                date = a.getDate();
-                SimpleDateFormat d2 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
-                Date date1 = d2.parse(date);
-                date = d2.format(cal.getTime());
-                currentDay = d2.parse(date);
-                if (date1.getMonth() < currentDay.getMonth() & date1.getDate() == currentDay.getDate()) {
-                    System.out.println(a);
-                }
+            if (task.getPeriodicity().compareTo(Periodicity.OneOnMonth.name())==0){
+                Periodicity.OneOnMonth.nextTimeActuation(task);
             }
-            if (a.getPeriodicity() == "Ежегодно") {
-                date = a.getDate();
-                SimpleDateFormat d2 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
-                Date date1 = d2.parse(date);
-                date = d2.format(cal.getTime());
-                currentDay = d2.parse(date);
-                if (date1.getYear() < currentDay.getYear() & date1.getMonth() == currentDay.getMonth() & date1.getDate() == currentDay.getDate()) {
-                    System.out.println(a);
-                }
+            if (task.getPeriodicity().compareTo(Periodicity.OneOnYear.name())==0){
+                Periodicity.OneOnYear.nextTimeActuation(task);
             }
         }
     }
 
-    public void addTaskPersonal() {
+    public void addTaskPersonal() throws ParseException {
         System.out.println("Ввдеите заголовок, а потом описание вашей задачи");
         a1 = scanner.next();
         b1 = scanner.next();
@@ -160,7 +122,7 @@ public class Diary {
         }
     }
 
-    public void addTaskWorking() {
+    public void addTaskWorking() throws ParseException {
         System.out.println("Ввдеите заголовок, а потом описание вашей задачи");
         a1 = scanner.next();
         b1 = scanner.next();

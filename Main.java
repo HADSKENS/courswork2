@@ -44,7 +44,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException{
         printMenu();
         while (in.hasNext()) {
             menuChoice(in.nextInt());

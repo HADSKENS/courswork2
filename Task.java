@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Task {
+public abstract class Task{
     String header;
     String description;
     String type;
@@ -19,7 +19,7 @@ public class Task {
         this.header = header;
         this.description = description;
         this.type = typeTask.stringTask;
-        this.periodicity = periodicity.stringPeriodicity;
+        this.periodicity = periodicity.name();
         numberCreation++;
     }
 
