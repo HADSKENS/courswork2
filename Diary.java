@@ -10,9 +10,11 @@ public class Diary{
 
     private final Scanner scanner = new Scanner(System.in);
     public final List<Task> diary = new ArrayList<>();
+    public final List<Task> archive = new ArrayList<>();
     String a1;
     String b1;
     int count;
+    int edit;
 
     private void printMenu() {
         System.out.println("Выберите частоту повтора задачи");
@@ -86,7 +88,52 @@ public class Diary{
             for (int i = 0; i < diary.size(); i++) {
                 Task a = diary.get(i);
                 if (count == a.getId()) {
+                    archive.add(diary.get(i));
                     diary.remove(i);
+                }
+            }
+        }
+    }
+    public void printArchive(){
+        if (archive.size()!=0) {
+            for (int i = 0; i < archive.size(); i++) {
+                System.out.println(archive.get(i));
+            }
+        }
+        else {
+            System.out.println("Архив пуст");
+        }
+    }
+    public void editTask(){
+        if (diary.size()==0){
+            System.out.println("Редактировать нечего");
+        }
+        else {
+            System.out.println("Введите Id задачи которую вы хотите отредактировать");
+            edit=scanner.nextInt();
+            for (int i = 0; i < diary.size(); i++) {
+                Task a = diary.get(i);
+                if (edit == a.getId()) {
+                    System.out.println("0 - Отредактировать заголовок");
+                    System.out.println("1 - Отредактировать описание");
+                    System.out.println("2 - Отредактировать заголовок и описание");
+                    int numpad = scanner.nextInt();
+                    switch (numpad) {
+                        case 0:
+                            System.out.println("Введите Заголовок");
+                            a.setHeader(scanner.next());
+                            break;
+                        case 1:
+                            System.out.println("Введите Описание");
+                            a.setDescription(scanner.next());
+                            break;
+                        case 2:
+                            System.out.println("Введите Заголовок");
+                            a.setHeader(scanner.next());
+                            System.out.println("Введите Описание");
+                            a.setDescription(scanner.next());
+                            break;
+                    }
                 }
             }
         }
