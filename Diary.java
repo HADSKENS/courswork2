@@ -139,7 +139,7 @@ public class Diary{
         }
     }
 
-    public void taskNextDay() throws ParseException{
+        public void taskToDay() throws ParseException{
         for (Task task : diary) {
             if (task.getPeriodicity().compareTo(Periodicity.OnlyOne.name()) == 0) {
                     Periodicity.OnlyOne.nextTimeActuation(task);
@@ -155,6 +155,25 @@ public class Diary{
             }
             if (task.getPeriodicity().compareTo(Periodicity.OneOnYear.name())==0){
                 Periodicity.OneOnYear.nextTimeActuation(task);
+            }
+        }
+    }
+    public void taskNextDay() throws ParseException {
+        for (Task task: diary){
+            if (task.getPeriodicity().compareTo(Periodicity.OnlyOne.name()) == 0) {
+                Periodicity.OnlyOne.nextDay(task);
+            }
+            if (task.getPeriodicity().compareTo(Periodicity.OneOnDay.name())==0){
+                Periodicity.OneOnDay.nextDay(task);
+            }
+            if (task.getPeriodicity().compareTo(Periodicity.OneOnWeek.name())==0) {
+                Periodicity.OneOnWeek.nextDay(task);
+            }
+            if (task.getPeriodicity().compareTo(Periodicity.OneOnMonth.name())==0){
+                Periodicity.OneOnMonth.nextDay(task);
+            }
+            if (task.getPeriodicity().compareTo(Periodicity.OneOnYear.name())==0){
+                Periodicity.OneOnYear.nextDay(task);
             }
         }
     }

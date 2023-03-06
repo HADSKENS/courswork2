@@ -14,6 +14,7 @@ public class Main {
         System.out.println("5 - задачи на текущий день");
         System.out.println("6 - напчатать архив удаленных задач");
         System.out.println("7 - отредактировать задачу по id");
+        System.out.println("8 - получить список задач на предстоящий день");
         System.out.println();
     }
 
@@ -36,7 +37,7 @@ public class Main {
                 printMenu();
                 break;
             case 5:
-                a.taskNextDay();
+                a.taskToDay();
                 printMenu();
                 break;
             case 6:
@@ -45,6 +46,10 @@ public class Main {
                 break;
             case 7:
                 a.editTask();
+                printMenu();
+                break;
+            case 8:
+                a.taskNextDay();
                 printMenu();
                 break;
             default:
