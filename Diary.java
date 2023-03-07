@@ -2,6 +2,7 @@ import java.security.spec.RSAOtherPrimeInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Diary{
@@ -146,7 +147,9 @@ public class Diary{
             Date date = date1.parse(scanner.next());
             System.out.println("Здачи на указанный вами день");
         for (Task task : diary) {
-            task.dayTask(task,date);
+            if (task.dayTask(date)){
+                System.out.println(task);
+            }
         }
     }
     public void addTaskPersonal() throws ParseException {

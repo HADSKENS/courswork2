@@ -1,8 +1,6 @@
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public abstract class Task{
     String header;
@@ -13,10 +11,11 @@ public abstract class Task{
     static int numberCreation;
     Calendar cal = Calendar.getInstance();
     String date;
-    Date dateCreate = new Date();
+    Date dateCreate1 = new Date();
+    Date dateCreate;
 
     public Task(String header, String description, TypeTask typeTask, Periodicity periodicity) throws ParseException {
-        this.date = String.valueOf(dateCreate);
+        dateCreate = dateCreate1;
         id = getNumberCreation();
         this.header = header;
         this.description = description;
@@ -29,8 +28,8 @@ public abstract class Task{
         return numberCreation;
     }
 
-    public String getDate() {
-        return date;
+    public Date getDate() {
+        return dateCreate;
     }
 
     public int getId() {
@@ -60,8 +59,7 @@ public abstract class Task{
     public String getPeriodicity() {
         return periodicity;
     }
-    public void dayTask(Task task,Date date) throws ParseException {}
-
+    abstract boolean dayTask(Date date);
     @Override
     public String toString() {
         return

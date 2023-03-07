@@ -8,11 +8,7 @@ public class YearlyTask extends Task{
         super(header, description, typeTask, periodicity);
     }
     @Override
-    public void dayTask(Task task, Date date) throws ParseException{
-        SimpleDateFormat date1 = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", Locale.ENGLISH);
-        Date dateTask = date1.parse(task.getDate());
-        if (dateTask.getDate()==date.getDate() & dateTask.getMonth()==date.getMonth()){
-            System.out.println(task);
-        }
+    public boolean dayTask(Date date){
+        return getDate().getMonth()==date.getMonth() & getDate().getDate()==date.getDate();
     }
 }
