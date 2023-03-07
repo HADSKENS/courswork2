@@ -14,6 +14,11 @@ public class DailyTask extends Task {
         this.datePreservation = d2.parse(date);
     }
 
+    @Override
+    public void dayTask(Task task,Date date){
+        System.out.println(task);
+    }
+
     public Date getDatePreservation() {
         return datePreservation;
     }

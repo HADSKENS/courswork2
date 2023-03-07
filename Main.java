@@ -11,10 +11,9 @@ public class Main {
         System.out.println("2 - создать рабочую задачу");
         System.out.println("3 - напичатать все задачи");
         System.out.println("4 - удалить задачу по id");
-        System.out.println("5 - задачи на текущий день");
+        System.out.println("5 - задачи на выбранный день");
         System.out.println("6 - напчатать архив удаленных задач");
         System.out.println("7 - отредактировать задачу по id");
-        System.out.println("8 - получить список задач на предстоящий день");
         System.out.println();
     }
 
@@ -46,10 +45,6 @@ public class Main {
                 break;
             case 7:
                 a.editTask();
-                printMenu();
-                break;
-            case 8:
-                a.taskNextDay();
                 printMenu();
                 break;
             default:

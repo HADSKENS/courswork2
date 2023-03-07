@@ -1,6 +1,7 @@
 import java.security.spec.RSAOtherPrimeInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Diary{
@@ -140,44 +141,14 @@ public class Diary{
     }
 
         public void taskToDay() throws ParseException{
+            System.out.println("Введите дату в формате День.Месяц.Год");
+            SimpleDateFormat date1 = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+            Date date = date1.parse(scanner.next());
+            System.out.println("Здачи на указанный вами день");
         for (Task task : diary) {
-            if (task.getPeriodicity().compareTo(Periodicity.OnlyOne.name()) == 0) {
-                    Periodicity.OnlyOne.nextTimeActuation(task);
-            }
-            if (task.getPeriodicity().compareTo(Periodicity.OneOnDay.name())==0){
-                Periodicity.OneOnDay.nextTimeActuation(task);
-            }
-            if (task.getPeriodicity().compareTo(Periodicity.OneOnWeek.name())==0) {
-                Periodicity.OneOnWeek.nextTimeActuation(task);
-            }
-            if (task.getPeriodicity().compareTo(Periodicity.OneOnMonth.name())==0){
-                Periodicity.OneOnMonth.nextTimeActuation(task);
-            }
-            if (task.getPeriodicity().compareTo(Periodicity.OneOnYear.name())==0){
-                Periodicity.OneOnYear.nextTimeActuation(task);
-            }
+            task.dayTask(task,date);
         }
     }
-    public void taskNextDay() throws ParseException {
-        for (Task task: diary){
-            if (task.getPeriodicity().compareTo(Periodicity.OnlyOne.name()) == 0) {
-                Periodicity.OnlyOne.nextDay(task);
-            }
-            if (task.getPeriodicity().compareTo(Periodicity.OneOnDay.name())==0){
-                Periodicity.OneOnDay.nextDay(task);
-            }
-            if (task.getPeriodicity().compareTo(Periodicity.OneOnWeek.name())==0) {
-                Periodicity.OneOnWeek.nextDay(task);
-            }
-            if (task.getPeriodicity().compareTo(Periodicity.OneOnMonth.name())==0){
-                Periodicity.OneOnMonth.nextDay(task);
-            }
-            if (task.getPeriodicity().compareTo(Periodicity.OneOnYear.name())==0){
-                Periodicity.OneOnYear.nextDay(task);
-            }
-        }
-    }
-
     public void addTaskPersonal() throws ParseException {
         System.out.println("Ввдеите заголовок, а потом описание вашей задачи");
         a1 = scanner.next();
