@@ -1,27 +1,23 @@
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-public class Task {
+public abstract class Task {
     String header;
     String description;
     String type;
     String periodicity;
     int id;
     static int numberCreation;
-    String date;
-    Date dateCreate = new Date();
-    public Task(){
-    }
+    LocalDate dateCreate1 = LocalDate.now();
+    LocalDate dateCreate;
 
-    public Task(String header, String description, TypeTask typeTask,Periodicity periodicity) {
-        this.date=String.valueOf(dateCreate);
+    public Task(String header, String description, TypeTask typeTask, Periodicity periodicity) {
+        dateCreate = dateCreate1;
         id = getNumberCreation();
         this.header = header;
         this.description = description;
-        this.type = typeTask.stringTask;
-        this.periodicity=periodicity.stringPeriodicity;
+        this.type = typeTask.name();
+        this.periodicity = periodicity.name();
         numberCreation++;
     }
 
@@ -29,8 +25,8 @@ public class Task {
         return numberCreation;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDate getDate() {
+        return dateCreate;
     }
 
     public int getId() {
@@ -61,6 +57,8 @@ public class Task {
         return periodicity;
     }
 
+    abstract boolean dayTask(LocalDate date);
+
     @Override
     public String toString() {
         return
@@ -69,7 +67,7 @@ public class Task {
                         ", description='" + description + '\'' +
                         ", type='" + type + '\'' +
                         ", periodicity='" + periodicity + '\'' +
-                        ", dateCreate='" + date + '}';
+                        ", dateCreate='" + dateCreate + '}';
 
     }
 }

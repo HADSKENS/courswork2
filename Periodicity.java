@@ -1,11 +1,8 @@
 public enum Periodicity {
-    onlyone("Один раз"),oneonday("Ежедневно"),oneonweek("Еженедельно"),oneonmonth("Ежемесячно"),oneonyear("Ежегодно");
-    String stringPeriodicity;
+    OnlyOne,
+    OneOnDay,
+    OneOnWeek,
+    OneOnMonth,
+    OneOnYear;
 
-    Periodicity(String stringPeriodicity) {
-        this.stringPeriodicity=stringPeriodicity;
-    }
-    public void getNext(){
-
-    }
 }
