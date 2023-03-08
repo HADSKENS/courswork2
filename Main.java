@@ -1,4 +1,3 @@
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class Main {
@@ -14,10 +13,11 @@ public class Main {
         System.out.println("5 - задачи на выбранный день");
         System.out.println("6 - напчатать архив удаленных задач");
         System.out.println("7 - отредактировать задачу по id");
+        System.out.println("8 - закрыть программу");
         System.out.println();
     }
 
-    public static void menuChoice(int numMenu) throws ParseException {
+    public static void menuChoice(int numMenu) {
         switch (numMenu) {
             case 1:
                 a.addTaskPersonal();
@@ -47,16 +47,19 @@ public class Main {
                 a.editTask();
                 printMenu();
                 break;
+            case 8:
+                System.exit(0);
             default:
                 System.out.println("Не понимаю");
                 printMenu();
                 break;
+
         }
     }
 
-    public static void main(String[] args) throws ParseException{
+    public static void main(String[] args) {
         printMenu();
-        while (in.hasNext()) {
+        while (in.hasNextLine()) {
             menuChoice(in.nextInt());
         }
     }

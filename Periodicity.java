@@ -1,6 +1,6 @@
 public enum Periodicity {
-    OnlyOne ,
-    OneOnDay ,
+    OnlyOne,
+    OneOnDay,
     OneOnWeek,
     OneOnMonth,
     OneOnYear;

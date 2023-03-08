@@ -1,25 +1,21 @@
-import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
 
-public abstract class Task{
+public abstract class Task {
     String header;
     String description;
     String type;
     String periodicity;
     int id;
     static int numberCreation;
-    Calendar cal = Calendar.getInstance();
-    String date;
     Date dateCreate1 = new Date();
     Date dateCreate;
 
-    public Task(String header, String description, TypeTask typeTask, Periodicity periodicity) throws ParseException {
+    public Task(String header, String description, TypeTask typeTask, Periodicity periodicity) {
         dateCreate = dateCreate1;
         id = getNumberCreation();
         this.header = header;
         this.description = description;
-        this.type = typeTask.stringTask;
+        this.type = typeTask.name();
         this.periodicity = periodicity.name();
         numberCreation++;
     }
@@ -59,7 +55,9 @@ public abstract class Task{
     public String getPeriodicity() {
         return periodicity;
     }
+
     abstract boolean dayTask(Date date);
+
     @Override
     public String toString() {
         return
@@ -68,7 +66,7 @@ public abstract class Task{
                         ", description='" + description + '\'' +
                         ", type='" + type + '\'' +
                         ", periodicity='" + periodicity + '\'' +
-                        ", dateCreate='" + date + '}';
+                        ", dateCreate='" + dateCreate + '}';
 
     }
 }

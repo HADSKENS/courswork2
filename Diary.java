@@ -1,11 +1,8 @@
-import java.security.spec.RSAOtherPrimeInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
-public class Diary{
+public class Diary {
 
     public Diary() {
     }
@@ -15,8 +12,8 @@ public class Diary{
     public final List<Task> archive = new ArrayList<>();
     String a1;
     String b1;
-    int count;
     int edit;
+    String read;
 
     private void printMenu() {
         System.out.println("Выберите частоту повтора задачи");
@@ -27,7 +24,7 @@ public class Diary{
         System.out.println("5 - Ежегодно");
     }
 
-    private void menuChoice(int num) throws ParseException {
+    private void menuChoice(int num) {
         switch (num) {
             case 1:
                 OneTimeTask a = new OneTimeTask(a1, b1, TypeTask.personal, Periodicity.OnlyOne);
@@ -54,7 +51,7 @@ public class Diary{
         }
     }
 
-    private void menuChoice1(int num) throws ParseException {
+    private void menuChoice1(int num) {
         switch (num) {
             case 1:
                 OneTimeTask a = new OneTimeTask(a1, b1, TypeTask.working, Periodicity.OnlyOne);
@@ -86,54 +83,83 @@ public class Diary{
             System.out.println("Задач не обнаружено");
         } else {
             System.out.println("Введите ID");
-            count = scanner.nextInt();
+            edit = scanner.nextInt();
             for (int i = 0; i < diary.size(); i++) {
                 Task a = diary.get(i);
-                if (count == a.getId()) {
+                if (edit == a.getId()) {
                     archive.add(diary.get(i));
                     diary.remove(i);
                 }
             }
         }
     }
-    public void printArchive(){
-        if (archive.size()!=0) {
+
+    public void printArchive() {
+        if (archive.size() != 0) {
             for (int i = 0; i < archive.size(); i++) {
                 System.out.println(archive.get(i));
             }
-        }
-        else {
+        } else {
             System.out.println("Архив пуст");
         }
     }
-    public void editTask(){
-        if (diary.size()==0){
+
+    public void editTask() {
+        if (diary.size() == 0) {
             System.out.println("Редактировать нечего");
-        }
-        else {
+        } else {
             System.out.println("Введите Id задачи которую вы хотите отредактировать");
-            edit=scanner.nextInt();
+            edit = scanner.nextInt();
             for (int i = 0; i < diary.size(); i++) {
                 Task a = diary.get(i);
                 if (edit == a.getId()) {
                     System.out.println("0 - Отредактировать заголовок");
                     System.out.println("1 - Отредактировать описание");
-                    System.out.println("2 - Отредактировать заголовок и описание");
                     int numpad = scanner.nextInt();
                     switch (numpad) {
                         case 0:
-                            System.out.println("Введите Заголовок");
+                            System.out.println("Введите новый Заголовок");
                             a.setHeader(scanner.next());
+                            System.out.println("Ваш новый заголовок для задачи ");
+                            System.out.println(a.getHeader());
+                            System.out.println("Хотите отредактировать описание");
+                            System.out.println("0 - Да");
+                            System.out.println("1 - Нет");
+                            numpad=scanner.nextInt();
+                            switch (numpad){
+                                case 0:
+                                    System.out.println("Введите новое описание");
+                                    a.setDescription(scanner.next());
+                                    break;
+                                case 1:
+                                    break;
+                                default:
+                                    System.out.println("Описание осталось без изменений");
+                                    break;
+                            }
                             break;
                         case 1:
                             System.out.println("Введите Описание");
                             a.setDescription(scanner.next());
+                            System.out.println("Ваше новое описание для задачи");
+                            System.out.println(a.getDescription());
+                            System.out.println("Хотите отредактировать Заголовок");
+                            System.out.println("0 - Да");
+                            System.out.println("1 - Нет");
+                            numpad=scanner.nextInt();
+                            switch (numpad){
+                                case 0:
+                                    System.out.println("Введите новый заголовок");
+                                    a.setHeader(scanner.next());
+                                    break;
+                                case 1:
+                                    break;
+                                default:
+                                    System.out.println("Заголовок остался без изменений");
+                            }
                             break;
-                        case 2:
-                            System.out.println("Введите Заголовок");
-                            a.setHeader(scanner.next());
-                            System.out.println("Введите Описание");
-                            a.setDescription(scanner.next());
+                        default:
+                            System.out.println("Не понимаю, начни с начала");
                             break;
                     }
                 }
@@ -141,19 +167,26 @@ public class Diary{
         }
     }
 
-        public void taskToDay() throws ParseException{
-            System.out.println("Введите дату в формате День.Месяц.Год");
-            SimpleDateFormat date1 = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+    public void taskToDay() {
+        System.out.println("Введите дату в формате День.Месяц.Год");
+        SimpleDateFormat date1 = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+        try {
             Date date = date1.parse(scanner.next());
             System.out.println("Здачи на указанный вами день");
-        for (Task task : diary) {
-            if (task.dayTask(date)){
-                System.out.println(task);
+            for (Task task : diary) {
+                if (task.getDate().before(date)) {
+                    if (task.dayTask(date)) {
+                        System.out.println(task);
+                    }
+                }
             }
+        } catch (ParseException x) {
+            System.out.println("Дата указана в неверном формате");
         }
     }
-    public void addTaskPersonal() throws ParseException {
-        System.out.println("Ввдеите заголовок, а потом описание вашей задачи");
+
+    public void addTaskPersonal() {
+        System.out.println("Введите заголовок, а потом описание вашей задачи");
         a1 = scanner.next();
         b1 = scanner.next();
         printMenu();
@@ -162,7 +195,7 @@ public class Diary{
         }
     }
 
-    public void addTaskWorking() throws ParseException {
+    public void addTaskWorking() {
         System.out.println("Ввдеите заголовок, а потом описание вашей задачи");
         a1 = scanner.next();
         b1 = scanner.next();
