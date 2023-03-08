@@ -1,4 +1,5 @@
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public abstract class Task {
     String header;
@@ -7,8 +8,8 @@ public abstract class Task {
     String periodicity;
     int id;
     static int numberCreation;
-    Date dateCreate1 = new Date();
-    Date dateCreate;
+    LocalDate dateCreate1 = LocalDate.now();
+    LocalDate dateCreate;
 
     public Task(String header, String description, TypeTask typeTask, Periodicity periodicity) {
         dateCreate = dateCreate1;
@@ -24,7 +25,7 @@ public abstract class Task {
         return numberCreation;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return dateCreate;
     }
 
@@ -56,7 +57,7 @@ public abstract class Task {
         return periodicity;
     }
 
-    abstract boolean dayTask(Date date);
+    abstract boolean dayTask(LocalDate date);
 
     @Override
     public String toString() {

@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class DailyTask extends Task {
 
@@ -7,7 +7,7 @@ public class DailyTask extends Task {
     }
 
     @Override
-    public boolean dayTask(Date date) {
+    public boolean dayTask(LocalDate date) {
         return true;
     }
 }

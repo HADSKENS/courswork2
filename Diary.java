@@ -1,5 +1,8 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Diary {
@@ -167,21 +170,21 @@ public class Diary {
         }
     }
 
-    public void taskToDay() {
-        System.out.println("Введите дату в формате День.Месяц.Год");
-        SimpleDateFormat date1 = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
+    public void taskToDay() throws DateTimeParseException {
+        System.out.println("Введите дату в формате Год-Месяц-День. Пример:2023-03-08");
         try {
-            Date date = date1.parse(scanner.next());
+            LocalDate date = LocalDate.parse(scanner.next());
             System.out.println("Здачи на указанный вами день");
             for (Task task : diary) {
-                if (task.getDate().before(date)) {
+                if (task.getDate().isBefore(date)) {
                     if (task.dayTask(date)) {
                         System.out.println(task);
                     }
                 }
             }
-        } catch (ParseException x) {
-            System.out.println("Дата указана в неверном формате");
+        }
+        catch (DateTimeParseException x){
+            System.out.println("Введен неверный формат даты");
         }
     }
 
